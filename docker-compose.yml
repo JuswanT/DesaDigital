@@ -1,4 +1,15 @@
 services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: opensid-nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - opensid-network
+
   db:
     image: mysql:8.0
     container_name: opensid-db
@@ -25,29 +36,15 @@ services:
     networks:
       - opensid-network
 
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: opensid-phpmyadmin
-    restart: unless-stopped
-    ports:
-      - "8888:80"
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - opensid-network
-
   app-wawatu:
     build:
       context: ./desa_wawatu
     container_name: opensid-wawatu
     restart: unless-stopped
-    ports:
-      - "6000:80"
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=wawatu.local  # Ganti dengan domain asli
     volumes:
       - ./desa_wawatu/desa:/var/www/html/desa
       - ./desa_wawatu/storage:/var/www/html/storage
@@ -63,8 +60,10 @@ services:
       context: ./desa_tanjung_tiram
     container_name: opensid-tanjungtiram
     restart: unless-stopped
-    ports:
-      - "6001:80"
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=tanjungtiram.local  # Ganti dengan domain asli
     volumes:
       - ./desa_tanjung_tiram/desa:/var/www/html/desa
       - ./desa_tanjung_tiram/storage:/var/www/html/storage
@@ -80,8 +79,10 @@ services:
       context: ./kel_lalowaru
     container_name: opensid-lalowaru
     restart: unless-stopped
-    ports:
-      - "6002:80"
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=lalowaru.local  # Ganti dengan domain asli
     volumes:
       - ./kel_lalowaru/desa:/var/www/html/desa
       - ./kel_lalowaru/storage:/var/www/html/storage
@@ -97,8 +98,10 @@ services:
       context: ./desa_mata_wawatu
     container_name: opensid-matawawatu
     restart: unless-stopped
-    ports:
-      - "6003:80"
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=matawawatu.local  # Ganti dengan domain asli
     volumes:
       - ./desa_mata_wawatu/desa:/var/www/html/desa
       - ./desa_mata_wawatu/storage:/var/www/html/storage
