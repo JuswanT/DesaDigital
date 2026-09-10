@@ -634,7 +634,7 @@ if (! function_exists('ambilBerkas')) {
         $CI->load->helper('download');
 
         // Validasi nama berkas
-        if (! preg_match('/^(?:[a-z0-9_ \(\)\',-]|\.(?!\.))+$/iD', $nama_berkas)) {
+        if (! preg_match('/^(?:[a-z0-9_-]|\.(?!\.))+$/iD', $nama_berkas)) {
             $pesan = 'Nama berkas tidak valid';
             if ($redirect_url) {
                 if ($popup) {
@@ -1184,14 +1184,9 @@ function strReplaceArrayRecursive($replacement = [], $strArray = false, $isRepla
 
 function get_domain(string $url): ?string
 {
-    // Tambahkan http:// jika tidak ada skema agar parse_url bisa membedakan host dan path
-    if (!preg_match('#^http(s)?://#', $url)) {
-        $url = 'http://' . $url;
-    }
-
     $parse = parse_url($url);
 
-    return preg_replace('#^www\.#', '', $parse['host'] ?? '');
+    return preg_replace('#^(http(s)?://)?w{3}\.#', '$1', $parse['host']);
 }
 
 function get_antrian($antrian)

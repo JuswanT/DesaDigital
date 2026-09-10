@@ -72,8 +72,8 @@
     </style>
 
     <!-- Untuk ubahan style desa -->
-    <?php if (is_file(DESA_DIR . 'css/siteman.css')) : ?>
-        <link rel='Stylesheet' href="<?= base_url(DESA_DIR . 'css/siteman.css') ?>">
+    <?php if (is_file('desa/css/siteman.css')) : ?>
+        <link rel='Stylesheet' href="<?= base_url('desa/css/siteman.css') ?>">
     <?php endif ?>
     <!-- Diperlukan untuk script jquery khusus halaman -->
     <script src="<?= asset('bootstrap/js/jquery.min.js') ?>"></script>

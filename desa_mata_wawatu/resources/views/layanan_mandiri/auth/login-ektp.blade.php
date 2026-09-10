@@ -2,7 +2,6 @@
 
 @section('content')
     <form id="validasi" autocomplete="off" action="{{ $form_action }}" method="post" class="login-form">
-        <input type="hidden" name="{{ $token_name }}" value="{{ $token_value }}">
         <div class="login-footer-top">
             @if ($cek_anjungan)
                 Tempelkan e-KTP Pada Card Reader

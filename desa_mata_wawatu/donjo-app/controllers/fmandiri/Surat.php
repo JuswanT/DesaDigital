@@ -256,7 +256,7 @@ class Surat extends Mandiri_Controller
             'url'          => $surat->url_surat,
             'individu'     => $penduduk->toArray(),
             'anggota'      => $penduduk?->keluarga?->anggota?->toArray(),
-            'surat_url'    => preg_replace('#/clear$#i', '', (string) $_SERVER['REQUEST_URI']),
+            'surat_url'    => rtrim($_SERVER['REQUEST_URI'], '/clear'),
             'form_action'  => route('layanan-mandiri.surat.kirim', $permohonan['id']),
             'cek_anjungan' => $this->cek_anjungan,
             'mandiri'      => 1,
@@ -294,7 +294,7 @@ class Surat extends Mandiri_Controller
             $penduduk   = auth('penduduk')->user();
 
             // Dispatch event to send notifications
-            event(new PermohonanSuratSubmitted($permohonan, $penduduk->penduduk, $surat));
+            event(new PermohonanSuratSubmitted($permohonan, $penduduk, $surat));
         }
 
         $this->session->unset_userdata('data_permohonan');
@@ -363,7 +363,7 @@ class Surat extends Mandiri_Controller
 
         // Cek ada file
         if (file_exists(FCPATH . LOKASI_ARSIP . $surat->nama_surat)) {
-            return ambilBerkas($surat->nama_surat, 'layanan-mandiri/arsip-surat', null, LOKASI_ARSIP, true);
+            return ambilBerkas($surat->nama_surat, $this->controller, null, LOKASI_ARSIP, true);
         }
         echo 'Berkas tidak ditemukan';
     }

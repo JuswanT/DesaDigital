@@ -1,7 +1,6 @@
 @include('admin.pengaturan_surat.asset_tinymce', ['height' => 350])
 @extends('admin.layouts.index')
 @include('admin.layouts.components.asset_validasi')
-@include('admin.layouts.components.jquery_ui')
 @section('title')
     <h1>
         Daftar Surat
@@ -23,7 +22,6 @@
             <li><a href="#tte" data-toggle="tab">Pengaturan TTE</a></li>
             <li><a href="#sumber-penduduk" data-toggle="tab">Form Penduduk Luar</a></li>
             <li><a href="#kode-isian" data-toggle="tab">Kode Isian Alias</a></li>
-            <li><a href="#gambar-ttd" data-toggle="tab">Tanda Tangan & Stempel</a></li>
             <li><a href="#lainnya" data-toggle="tab">Lainnya</a></li>
         </ul>
         <div class="tab-content">
@@ -34,7 +32,6 @@
             @include('admin.pengaturan_surat.partials.pengaturan_tte')
             @include('admin.pengaturan_surat.partials.pengaturan_sumber_penduduk')
             @include('admin.pengaturan_surat.partials.pengaturan_kodeisian')
-            @include('admin.pengaturan_surat.partials.pengaturan_gambar_ttd')
             @include('admin.pengaturan_surat.partials.pengaturan_lainnya')
             <div class="box-footer">
                 <button type="reset" class="btn btn-social btn-danger btn-sm"><i class="fa fa-times"></i>

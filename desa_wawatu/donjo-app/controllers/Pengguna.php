@@ -39,6 +39,7 @@ use App\Libraries\OTP\OtpManager;
 use App\Models\User;
 use App\Services\OtpService;
 use App\Traits\UploadFotoUser;
+use Exception;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -73,7 +74,7 @@ class Pengguna extends Admin_Controller
             if (! empty($userData->id_telegram) && $botUsername) {
                 $isChatStarted = $this->otpService->verifyTelegramChatId($userData->id_telegram);
             }
-        } catch (\Throwable $e) {
+        } catch (Exception $e) {
             $telegramError = true;
         }
 
@@ -161,7 +162,7 @@ class Pengguna extends Admin_Controller
 
         try {
             $request->user()->sendEmailVerificationNotification();
-        } catch (\Throwable $e) {
+        } catch (Exception $e) {
             log_message('error', $e->getMessage());
 
             return redirect_with('error', 'Tidak berhasil mengirim verifikasi email', 'pengguna');
@@ -197,7 +198,7 @@ class Pengguna extends Admin_Controller
                 'message' => 'sucess',
                 'data'    => $id_telegram,
             ]);
-        } catch (\Throwable $e) {
+        } catch (Exception $e) {
             return json([
                 'status'  => false,
                 'message' => $e->getMessage(),

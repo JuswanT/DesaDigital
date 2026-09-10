@@ -167,7 +167,7 @@ class Surat extends Admin_Controller
 
         $data['url']       = $url;
         $data['anchor']    = $this->input->post('anchor');
-        $data['surat_url'] = preg_replace('#/clear$#i', '', (string) $_SERVER['REQUEST_URI']);
+        $data['surat_url'] = rtrim((string) $_SERVER['REQUEST_URI'], '/clear');
 
         if (! empty($nik)) {
             $data['individu'] = $data['anggota'] = null;

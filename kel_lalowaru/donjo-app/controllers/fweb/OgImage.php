@@ -55,8 +55,8 @@ class OgImage extends Web_Controller
             show_404();
         }
 
-        $uploadDir = FCPATH . DESA_DIR . 'upload/artikel/';
-        $cacheDir  = FCPATH . DESA_DIR . 'upload/cache/';
+        $uploadDir = FCPATH . 'desa/upload/artikel/';
+        $cacheDir  = FCPATH . 'desa/upload/cache/';
 
         // Pastikan folder cache ada
         if (! file_exists($cacheDir)) {

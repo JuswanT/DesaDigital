@@ -60,7 +60,6 @@ return new class () extends Migration {
             $table->boolean('pamong_status')->nullable()->default(true);
             $table->date('pamong_tgl_terdaftar')->nullable();
             $table->boolean('pamong_ttd')->nullable();
-            $table->text('media_sosial')->nullable();
             $table->text('foto')->nullable();
             $table->integer('id_pend')->nullable();
             $table->string('pamong_tempatlahir', 100)->nullable();

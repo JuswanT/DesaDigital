@@ -116,7 +116,7 @@ $query_builder = true;
 $db['default']['hostname']     = 'localhost';
 $db['default']['username']     = 'root';
 $db['default']['password']     = '';
-$db['default']['database']     = 'opensid_desa_wawatu';
+$db['default']['database']     = 'opensid';
 $db['default']['port']         = 3306;
 $db['default']['stricton']     = true;
 $db['default']['dbdriver']     = 'mysqli';
@@ -135,9 +135,8 @@ $db['default']['failover']     = [];
 $db['default']['save_queries'] = true;
 
 // Ganti pegaturan basisdata sesuai yg ada pada file desa/config/database.php
-if (file_exists(LOKASI_CONFIG_DESA . 'database.php')) {
-    include LOKASI_CONFIG_DESA . 'database.php';
-}
+include LOKASI_CONFIG_DESA . 'database.php';
+
 // diletakkan di bawah, karena encrypter diload dalam eloquent.php
 if (strlen($db['default']['password']) > 80) {
     $db['default']['password'] = Container::getInstance()->make('encrypter')->decrypt($db['default']['password']);

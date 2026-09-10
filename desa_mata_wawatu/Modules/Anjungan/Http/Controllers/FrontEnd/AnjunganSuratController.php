@@ -108,8 +108,8 @@ class AnjunganSuratController extends MandiriModulController
             'url'          => $surat->url_surat,
             'individu'     => $individu,
             'anggota'      => $penduduk?->keluarga?->anggota?->toArray(),
-            'surat_url'    => preg_replace('#/clear$#i', '', (string) $_SERVER['REQUEST_URI']),
-            'form_action'  => route('anjungan.surat.kirim', $permohonan['id'] ?? ''),
+            'surat_url'    => rtrim($_SERVER['REQUEST_URI'], '/clear'),
+            'form_action'  => ci_route("surat/cetak/{$surat->url_surat}"),
             'anjungan'     => true,
         ]);
         $this->get_data_untuk_form($surat->url_surat, $data);
@@ -215,7 +215,7 @@ class AnjunganSuratController extends MandiriModulController
             'updated_at'  => $currentTimestamp,
         ];
 
-        $previewMode = $this->input->post('preview') ?: $this->input->get('preview');
+        $previewMode = $this->input->get('preview');
 
         if ($id) {
             PermohonanSurat::whereId($id)->update($data);

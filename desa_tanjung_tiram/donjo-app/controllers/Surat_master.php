@@ -113,18 +113,6 @@ class Surat_master extends Admin_Controller
             $validasi['visual_tte_gambar'] = $request['visual_tte_gambar'];
         }
 
-        // Tanda Tangan Kades
-        $validasi['ttd_kades_width']  = (int) ($request['ttd_kades_width'] ?? 100);
-        $validasi['ttd_kades_height'] = (int) ($request['ttd_kades_height'] ?? 50);
-        $validasi['ttd_kades_x']      = (int) ($request['ttd_kades_x'] ?? 0);
-        $validasi['ttd_kades_y']      = (int) ($request['ttd_kades_y'] ?? 0);
-
-        // Stempel Desa
-        $validasi['stempel_desa_width']  = (int) ($request['stempel_desa_width'] ?? 80);
-        $validasi['stempel_desa_height'] = (int) ($request['stempel_desa_height'] ?? 80);
-        $validasi['stempel_desa_x']      = (int) ($request['stempel_desa_x'] ?? -20);
-        $validasi['stempel_desa_y']      = (int) ($request['stempel_desa_y'] ?? -10);
-
         return $validasi;
     }
 
@@ -494,33 +482,14 @@ class Surat_master extends Admin_Controller
         }
 
         foreach ($data as $key => $value) {
-            $setting = SettingAplikasi::where('key', '=', $key)->first();
-            if ($setting) {
-                $setting->update(['value' => $value]);
-            } else {
-                SettingAplikasi::create(['key' => $key, 'value' => $value, 'kategori' => 'format_surat', 'jenis' => 'varchar']);
-            }
+            SettingAplikasi::where('key', '=', $key)->update(['value' => $value]);
         }
 
-        // upload gambar visual tte, ttd_kades, stempel_desa
-        $upload_fields = ['visual_tte_gambar', 'ttd_kades_file', 'stempel_desa_file'];
-        foreach ($upload_fields as $uf) {
-            if (isset($_FILES[$uf]) && $_FILES[$uf]['name'] != '') {
-                $file = $this->uploadGambar($uf, LOKASI_MEDIA, null, false);
-                if ($file) {
-                    $setting = SettingAplikasi::where('key', '=', $uf)->first();
-                    if ($setting) {
-                        $setting->update(['value' => $file]);
-                    } else {
-                        SettingAplikasi::create(['key' => $uf, 'value' => $file, 'kategori' => 'format_surat', 'jenis' => 'varchar']);
-                    }
-                } else {
-                    redirect_with('error', $this->upload->display_errors(null, null));
-                }
-            }
+        // upload gambar visual tte
+        if ($_FILES['visual_tte_gambar'] && $_FILES['visual_tte_gambar']['name'] != '') {
+            $file = $this->uploadGambar('visual_tte_gambar', LOKASI_MEDIA, null, false);
+            $file ? SettingAplikasi::where('key', '=', 'visual_tte_gambar')->update(['value' => $file]) : redirect_with('error', $this->upload->display_errors(null, null));
         }
-
-
 
         if ($data['kodeisian_alias']) {
             $judulAlias   = $data['kodeisian_alias']['judul'];

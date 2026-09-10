@@ -142,7 +142,7 @@ class Surat_dinas_cetak extends Admin_Controller
         if ($data['surat']) {
             $data['url']       = $url;
             $data['anchor']    = $this->input->post('anchor');
-            $data['surat_url'] = preg_replace('#/clear$#i', '', (string) $_SERVER['REQUEST_URI']);
+            $data['surat_url'] = rtrim((string) $_SERVER['REQUEST_URI'], '/clear');
 
             // cek apakah surat itu memiliki form kategori ( saksi etc )
             $kategori = get_key_form_kategori($data['surat']['form_isian']);

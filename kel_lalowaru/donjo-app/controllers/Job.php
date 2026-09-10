@@ -64,12 +64,12 @@ class Job extends CI_Controller
 
         // Kecuali folder
         $exclude = [
-            rtrim(DESA_DIR, '/') . '/config',
-            rtrim(DESA_DIR, '/') . '/themes',
+            'desa/config',
+            'desa/themes',
         ];
 
         // Kosongkan folder desa
-        foreach (glob(DESA_DIR . '*', GLOB_ONLYDIR) as $folder) {
+        foreach (glob('desa/*', GLOB_ONLYDIR) as $folder) {
             if (! in_array($folder, $exclude)) {
                 delete_files(FCPATH . $folder, true);
             }

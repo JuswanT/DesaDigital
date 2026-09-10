@@ -94,29 +94,6 @@ class KodeIsianPenandaTangan
             $niap_pamong = $pamong->pamong_niap;
         }
 
-        $gambar_ttd = '';
-        if (setting('ttd_kades_file') || setting('stempel_desa_file')) {
-            $gambar_ttd .= '<div style="position:relative;">';
-            if (setting('stempel_desa_file')) {
-                $w = setting('stempel_desa_width') ?? 80;
-                $h = setting('stempel_desa_height') ?? 80;
-                $x = setting('stempel_desa_x') ?? -20;
-                $y = setting('stempel_desa_y') ?? -10;
-                $src = base_url(LOKASI_MEDIA . setting('stempel_desa_file'));
-                $gambar_ttd .= '<img src="'.$src.'" style="position: absolute; width: '.$w.'px; height: '.$h.'px; left: '.$x.'px; top: '.$y.'px; z-index: -1;">';
-            }
-            if (setting('ttd_kades_file')) {
-                $w = setting('ttd_kades_width') ?? 100;
-                $h = setting('ttd_kades_height') ?? 50;
-                $x = setting('ttd_kades_x') ?? 0;
-                $y = setting('ttd_kades_y') ?? 0;
-                $src = base_url(LOKASI_MEDIA . setting('ttd_kades_file'));
-                $gambar_ttd .= '<img src="'.$src.'" style="position: absolute; width: '.$w.'px; height: '.$h.'px; left: '.$x.'px; top: '.$y.'px; z-index: -1;">';
-            }
-            $gambar_ttd .= '</div>';
-        }
-        $atas_nama = $gambar_ttd . $atas_nama;
-
         if (strlen($nip_pamong) > 10) {
             $sebutan_nip_desa = 'NIP';
             $nip              = $nip_pamong;

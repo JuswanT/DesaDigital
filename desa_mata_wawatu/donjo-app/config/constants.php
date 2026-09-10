@@ -157,14 +157,7 @@ define('KEHADIRAN', 'kehadiran');
 /**
  * Custom path directory
  */
-// Dalam arsitektur Docker, setiap desa memiliki container terpisah.
-// Folder 'desa' di dalam container sudah di-mount ke folder desa masing-masing
-// melalui docker-compose.yml (contoh: ./desa_wawatu:/var/www/html/desa).
-// Oleh karena itu, cukup gunakan folder 'desa' sebagai default.
-$desa_dir = 'desa';
-
-define('DESA_DIR', $desa_dir . '/');
-define('DESAPATH', DESA_DIR);
+define('DESAPATH', 'desa' . DIRECTORY_SEPARATOR);
 define('DESAPATHPERMISSION', 0755);
 define('RESOURCESPATH', 'resources' . DIRECTORY_SEPARATOR);
 define('STORAGEPATH', 'storage' . DIRECTORY_SEPARATOR);
@@ -203,47 +196,47 @@ define('LAYANAN_LOGO', 'assets/images/layanan/logo.png');
  * Untuk folder yang ada di difine perlu didaftarkan juga di config/installer.php agar dibuat otomatis jika tidak ditemukan.
  */
 // Folder
-define('LOKASI_LOGO_DESA', DESA_DIR . 'logo/');
-define('LOKASI_ARSIP', DESA_DIR . 'arsip/');
-define('LOKASI_CACHE', DESA_DIR . 'cache/');
-define('LOKASI_CONFIG_DESA', DESA_DIR . 'config/');
-define('LOKASI_LAMPIRAN_SURAT_DESA', DESA_DIR . 'template-surat/lampiran/');
-define('LOKASI_LAMPIRAN_SURAT_DINAS_DESA', DESA_DIR . 'template-surat/surat-dinas/lampiran/');
-define('LOKASI_TEMA_DESA', DESA_DIR . 'themes/');
-define('LOKASI_UPLOAD', DESA_DIR . 'upload/');
-define('LOKASI_USER_PICT', DESA_DIR . 'upload/user_pict/');
-define('LOKASI_FOTO_KELOMPOK', DESA_DIR . 'upload/kelompok/');
-define('LOKASI_FOTO_LEMBAGA', DESA_DIR . 'upload/lembaga/');
-define('LOKASI_GALERI', DESA_DIR . 'upload/galeri/');
-define('LOKASI_FOTO_ARTIKEL', DESA_DIR . 'upload/artikel/');
+define('LOKASI_LOGO_DESA', 'desa/logo/');
+define('LOKASI_ARSIP', 'desa/arsip/');
+define('LOKASI_CACHE', 'desa/cache/');
+define('LOKASI_CONFIG_DESA', 'desa/config/');
+define('LOKASI_LAMPIRAN_SURAT_DESA', 'desa/template-surat/lampiran/');
+define('LOKASI_LAMPIRAN_SURAT_DINAS_DESA', 'desa/template-surat/surat-dinas/lampiran/');
+define('LOKASI_TEMA_DESA', 'desa/themes/');
+define('LOKASI_UPLOAD', 'desa/upload/');
+define('LOKASI_USER_PICT', 'desa/upload/user_pict/');
+define('LOKASI_FOTO_KELOMPOK', 'desa/upload/kelompok/');
+define('LOKASI_FOTO_LEMBAGA', 'desa/upload/lembaga/');
+define('LOKASI_GALERI', 'desa/upload/galeri/');
+define('LOKASI_FOTO_ARTIKEL', 'desa/upload/artikel/');
 define('FOTO_TIDAK_TERSEDIA', 'images/404-image-not-found.jpg');
-define('LOKASI_FOTO_BUKU_TAMU', DESA_DIR . 'upload/buku_tamu/');
-define('LOKASI_FOTO_LOKASI', DESA_DIR . 'upload/gis/lokasi/');
-define('LOKASI_FOTO_AREA', DESA_DIR . 'upload/gis/area/');
-define('LOKASI_FOTO_GARIS', DESA_DIR . 'upload/gis/garis/');
-define('LOKASI_DOKUMEN', DESA_DIR . 'upload/dokumen/');
-define('LOKASI_PENGESAHAN', DESA_DIR . 'upload/pengesahan/');
-define('LOKASI_WIDGET', DESA_DIR . 'widgets/');
-define('LOKASI_GAMBAR_WIDGET', DESA_DIR . 'upload/widgets/');
-define('LOKASI_KEUANGAN_ZIP', DESA_DIR . 'upload/keuangan/');
-define('LOKASI_MEDIA', DESA_DIR . 'upload/media/');
-define('LOKASI_SIMBOL_LOKASI', DESA_DIR . 'upload/gis/lokasi/point/');
-define('LOKASI_SINKRONISASI_ZIP', DESA_DIR . 'upload/sinkronisasi/');
-define('LOKASI_PRODUK', DESA_DIR . 'upload/produk/');
-define('LOKASI_PENGADUAN', DESA_DIR . 'upload/pengaduan/');
-define('LOKASI_VAKSIN', DESA_DIR . 'upload/vaksin/');
-define('LOKASI_PENDAFTARAN', DESA_DIR . 'upload/pendaftaran');
-define('LOKASI_ICON_MENU_ANJUNGAN', DESA_DIR . 'anjungan/menu/');
-define('LATAR_LOGIN', DESA_DIR . 'pengaturan/siteman/images/');
-define('LOKASI_FOTO_DTKS', DESA_DIR . 'upload/dtks/');
-define('LOKASI_FONT_DESA', DESA_DIR . 'upload/fonts/');
-define('LOKASI_ICON_SOSMED', DESA_DIR . 'upload/sosmed/');
-define('LOKASI_SINERGI_PROGRAM', DESA_DIR . 'upload/widgets/');
-define('CONFIG_THEMES', DESA_DIR . 'upload/themes/');
+define('LOKASI_FOTO_BUKU_TAMU', 'desa/upload/buku_tamu/');
+define('LOKASI_FOTO_LOKASI', 'desa/upload/gis/lokasi/');
+define('LOKASI_FOTO_AREA', 'desa/upload/gis/area/');
+define('LOKASI_FOTO_GARIS', 'desa/upload/gis/garis/');
+define('LOKASI_DOKUMEN', 'desa/upload/dokumen/');
+define('LOKASI_PENGESAHAN', 'desa/upload/pengesahan/');
+define('LOKASI_WIDGET', 'desa/widgets/');
+define('LOKASI_GAMBAR_WIDGET', 'desa/upload/widgets/');
+define('LOKASI_KEUANGAN_ZIP', 'desa/upload/keuangan/');
+define('LOKASI_MEDIA', 'desa/upload/media/');
+define('LOKASI_SIMBOL_LOKASI', 'desa/upload/gis/lokasi/point/');
+define('LOKASI_SINKRONISASI_ZIP', 'desa/upload/sinkronisasi/');
+define('LOKASI_PRODUK', 'desa/upload/produk/');
+define('LOKASI_PENGADUAN', 'desa/upload/pengaduan/');
+define('LOKASI_VAKSIN', 'desa/upload/vaksin/');
+define('LOKASI_PENDAFTARAN', 'desa/upload/pendaftaran');
+define('LOKASI_ICON_MENU_ANJUNGAN', 'desa/anjungan/menu/');
+define('LATAR_LOGIN', 'desa/pengaturan/siteman/images/');
+define('LOKASI_FOTO_DTKS', 'desa/upload/dtks/');
+define('LOKASI_FONT_DESA', 'desa/upload/fonts/');
+define('LOKASI_ICON_SOSMED', 'desa/upload/sosmed/');
+define('LOKASI_SINERGI_PROGRAM', 'desa/upload/widgets/');
+define('CONFIG_THEMES', 'desa/upload/themes/');
 
 // File
-define('LATAR_SITEMAN', DESA_DIR . 'pengaturan/siteman/images/latar_login.jpg');
-define('LATAR_KEHADIRAN', DESA_DIR . 'pengaturan/siteman/images/latar_login_mandiri.jpg');
+define('LATAR_SITEMAN', 'desa/pengaturan/siteman/images/latar_login.jpg');
+define('LATAR_KEHADIRAN', 'desa/pengaturan/siteman/images/latar_login_mandiri.jpg');
 define('FONT_SYSTEM_TINYMCE', ['Andale Mono', 'Arial', 'Arial Black', 'Bali Simbar', 'Bookman Old Style', 'Comic Sans MS', 'Courier New', 'Georgia', 'Helvetica', 'Impact', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana']);
 
 // Pesan Notifikasi

@@ -206,7 +206,7 @@ if (! function_exists('theme_scan')) {
     function theme_scan(): void
     {
         $themeSistem   = glob(Theme::PATH_SISTEM . '*', GLOB_ONLYDIR);
-        $themeDesa     = glob(DESA_DIR . 'themes/*', GLOB_ONLYDIR);
+        $themeDesa     = glob('desa/themes/*', GLOB_ONLYDIR);
         $templateBlade = 'resources/views/template.blade.php';
 
         $themeList = collect($themeSistem)->merge($themeDesa)

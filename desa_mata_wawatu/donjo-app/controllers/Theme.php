@@ -338,7 +338,7 @@ class Theme extends Admin_Controller
             ];
         }
 
-        $lokasi_ekstrak = FCPATH . DESA_DIR . 'themes/';
+        $lokasi_ekstrak = FCPATH . 'desa/themes/';
         $subfolder      = $zip->getNameIndex(0);
         $zip->extractTo($lokasi_ekstrak);
         $zip->close();

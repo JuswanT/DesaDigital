@@ -4,7 +4,6 @@
     @include('admin.layouts.components.notifikasi')
     
     <form id="validasi" autocomplete="off" action="{{ $form_action }}" method="post" class="login-form">
-        <input type="hidden" name="{{ $token_name }}" value="{{ $token_value }}">
         <div class="form-group form-login">
             <input type="text" autocomplete="off" class="form-control angka required {!! jecho($cek_anjungan['keyboard'] == 1, true, 'kbvnumber') !!}" name="nik" maxlength="16" placeholder="NIK">
         </div>

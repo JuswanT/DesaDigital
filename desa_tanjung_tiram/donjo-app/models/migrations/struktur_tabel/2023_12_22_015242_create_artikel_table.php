@@ -64,8 +64,6 @@ return new class () extends Migration {
             $table->string('dokumen', 400)->nullable();
             $table->string('link_dokumen', 200)->nullable();
             $table->boolean('boleh_komentar')->default(true);
-            $table->string('sumber', 200);
-            $table->tinyInteger('tampilan')->nullable()->default(1);
             $table->string('slug', 200)->nullable();
             $table->integer('hit')->nullable()->default(0);
             $table->boolean('slider')->default(false);

@@ -176,7 +176,7 @@ class Permohonan_surat_admin extends Admin_Controller
         $data['individu'] = $penduduk->toArray();
         $this->get_data_untuk_form($url, $data);
         $data['isian_form']        = json_encode($this->ambil_isi_form($periksa->isian_form), JSON_THROW_ON_ERROR);
-        $data['surat_url']         = preg_replace('#/clear$#i', '', (string) $_SERVER['REQUEST_URI']);
+        $data['surat_url']         = rtrim((string) $_SERVER['REQUEST_URI'], '/clear');
         $data['syarat_permohonan'] = $periksa->mapSyaratSurat();
         $data['list_dokumen']      = empty($_POST['nik']) ? null : DokumenHidup::whereIdPend($periksa->id_pemohon)->get()->toArray();
         $data['form_action']       = ci_route("surat.pratinjau.{$url}.{$id}");

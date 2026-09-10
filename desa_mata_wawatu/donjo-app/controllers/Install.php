@@ -73,7 +73,7 @@ class Install extends CI_Controller
         $this->session->instalasi = true;
 
         // disable install
-        if (file_exists(LOKASI_CONFIG_DESA . 'database.php')) {
+        if (file_exists(DESAPATH)) {
             show_404();
         }
 
@@ -86,7 +86,7 @@ class Install extends CI_Controller
     public function server()
     {
         // disable install
-        if (file_exists(LOKASI_CONFIG_DESA . 'database.php')) {
+        if (file_exists(DESAPATH)) {
             show_404();
         }
 
@@ -101,7 +101,7 @@ class Install extends CI_Controller
     public function folders()
     {
         // disable install
-        if (file_exists(LOKASI_CONFIG_DESA . 'database.php')) {
+        if (file_exists(DESAPATH)) {
             show_404();
         }
 
@@ -120,7 +120,7 @@ class Install extends CI_Controller
     public function database()
     {
         // disable install
-        if (file_exists(LOKASI_CONFIG_DESA . 'database.php')) {
+        if (file_exists(DESAPATH)) {
             show_404();
         }
 
@@ -187,6 +187,9 @@ class Install extends CI_Controller
     public function migrations()
     {
         // disable install
+        if (file_exists(DESAPATH)) {
+            show_404();
+        }
 
         $this->load->database($this->config_database());
 
@@ -227,7 +230,7 @@ class Install extends CI_Controller
 
         if (
             ! $this->db
-            || ! file_exists(LOKASI_CONFIG_DESA . 'database.php')
+            || ! file_exists(DESAPATH)
             || ! $this->check_server()
             || ! $this->check_folders()
         ) {

@@ -46,7 +46,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
 |--------------------------------------------------------------------------
 */
 // Ambil setting SID khusus
-define('LOKASI_SID_INI', DESA_DIR . 'config/');
+define('LOKASI_SID_INI', 'desa/config/');
 
 /*
 |--------------------------------------------------------------------------

@@ -291,7 +291,7 @@ class MY_Controller extends CI_Controller
     private function cekConfig(): void
     {
         // jika belum install
-        if (! file_exists(LOKASI_CONFIG_DESA . 'database.php')) {
+        if (! file_exists(DESAPATH)) {
             redirect('install');
         }
 
