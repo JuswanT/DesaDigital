@@ -7,6 +7,7 @@ $query_builder = true;
 $db['default'] = [
     'dsn'   => '',
     'hostname' => 'db-tanjungtiram',
+    'port' => 3306,
     'username' => 'opensid',
     'password' => 'opensid123',
     'database' => 'opensid',
