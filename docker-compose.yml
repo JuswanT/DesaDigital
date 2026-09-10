@@ -1,17 +1,20 @@
 services:
-  db:
+  # ==========================================
+  # DATABASES
+  # ==========================================
+  db-wawatu:
     image: mysql:8.0
-    container_name: opensid-db
+    container_name: db-wawatu
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
-      MYSQL_DATABASE: opensid_desa_wawatu
+      MYSQL_DATABASE: opensid
       MYSQL_USER: ${DB_USERNAME:-opensid}
       MYSQL_PASSWORD: ${DB_PASSWORD:-opensid123}
     ports:
       - "3309:3306"
     volumes:
-      - opensid-db-data:/var/lib/mysql
+      - db-wawatu-data:/var/lib/mysql
     command: >
       --default-authentication-plugin=mysql_native_password
       --character-set-server=utf8mb4
@@ -25,6 +28,87 @@ services:
     networks:
       - opensid-network
 
+  db-tanjungtiram:
+    image: mysql:8.0
+    container_name: db-tanjungtiram
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
+      MYSQL_DATABASE: opensid
+      MYSQL_USER: ${DB_USERNAME:-opensid}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-opensid123}
+    ports:
+      - "3310:3306"
+    volumes:
+      - db-tanjungtiram-data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --sql-mode="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-rahasia123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - opensid-network
+
+  db-lalowaru:
+    image: mysql:8.0
+    container_name: db-lalowaru
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
+      MYSQL_DATABASE: opensid
+      MYSQL_USER: ${DB_USERNAME:-opensid}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-opensid123}
+    ports:
+      - "3311:3306"
+    volumes:
+      - db-lalowaru-data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --sql-mode="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-rahasia123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - opensid-network
+
+  db-matawawatu:
+    image: mysql:8.0
+    container_name: db-matawawatu
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
+      MYSQL_DATABASE: opensid
+      MYSQL_USER: ${DB_USERNAME:-opensid}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-opensid123}
+    ports:
+      - "3312:3306"
+    volumes:
+      - db-matawawatu-data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --sql-mode="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-rahasia123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - opensid-network
+
+  # ==========================================
+  # PHPMYADMIN
+  # ==========================================
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: opensid-phpmyadmin
@@ -32,15 +116,23 @@ services:
     ports:
       - "8888:80"
     environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
+      PMA_HOSTS: db-wawatu,db-matawawatu,db-tanjungtiram,db-lalowaru
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
     depends_on:
-      db:
+      db-wawatu:
+        condition: service_healthy
+      db-matawawatu:
+        condition: service_healthy
+      db-tanjungtiram:
+        condition: service_healthy
+      db-lalowaru:
         condition: service_healthy
     networks:
       - opensid-network
 
+  # ==========================================
+  # APPLICATIONS
+  # ==========================================
   app-wawatu:
     build:
       context: ./desa_wawatu
@@ -53,7 +145,7 @@ services:
       - ./desa_wawatu/storage:/var/www/html/storage
       - ./desa_wawatu/backup_inkremental:/var/www/html/backup_inkremental
     depends_on:
-      db:
+      db-wawatu:
         condition: service_healthy
     networks:
       - opensid-network
@@ -70,7 +162,7 @@ services:
       - ./desa_tanjung_tiram/storage:/var/www/html/storage
       - ./desa_tanjung_tiram/backup_inkremental:/var/www/html/backup_inkremental
     depends_on:
-      db:
+      db-tanjungtiram:
         condition: service_healthy
     networks:
       - opensid-network
@@ -87,7 +179,7 @@ services:
       - ./kel_lalowaru/storage:/var/www/html/storage
       - ./kel_lalowaru/backup_inkremental:/var/www/html/backup_inkremental
     depends_on:
-      db:
+      db-lalowaru:
         condition: service_healthy
     networks:
       - opensid-network
@@ -104,13 +196,19 @@ services:
       - ./desa_mata_wawatu/storage:/var/www/html/storage
       - ./desa_mata_wawatu/backup_inkremental:/var/www/html/backup_inkremental
     depends_on:
-      db:
+      db-matawawatu:
         condition: service_healthy
     networks:
       - opensid-network
 
 volumes:
-  opensid-db-data:
+  db-wawatu-data:
+    driver: local
+  db-matawawatu-data:
+    driver: local
+  db-tanjungtiram-data:
+    driver: local
+  db-lalowaru-data:
     driver: local
 
 networks:
