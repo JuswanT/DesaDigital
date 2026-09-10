@@ -26,30 +26,7 @@ version.json
 Obfuscator.php
 
 # Abaikan isian folder vendor
-vendor/codeigniter/framework/*
-!vendor/codeigniter/framework/system/
-
-# Abaikan dokumentasi
-vendor/*/*/.github
-vendor/*/*/*.md
-!vendor/*/*/catatan_rilis.md
-vendor/*/*/*.TXT
-vendor/*/*/*.cache
-vendor/*/*/*.yml
-vendor/*/*/*.dist
-vendor/*/*/*.xml
-vendor/*/*/.gitignore
-vendor/*/*/LICENSE
-vendor/*/*/tests/
-test
-doc/
-docs/
-example/
-examples/
-/tools/
-
-vendor/tinymce/*
-vendor/_laravel_ide
+vendor/
 vendor/libreoffice/*
 vendor/mikey179/*
 .vscode/*
