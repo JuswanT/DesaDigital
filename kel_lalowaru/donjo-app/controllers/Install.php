@@ -73,9 +73,9 @@ class Install extends CI_Controller
         $this->session->instalasi = true;
 
         // disable install
-        if (file_exists(DESAPATH)) {
-            show_404();
-        }
+        // if (file_exists(DESAPATH)) {
+        //    show_404();
+        // }
 
         return view('installer.steps.welcome');
     }
@@ -86,9 +86,9 @@ class Install extends CI_Controller
     public function server()
     {
         // disable install
-        if (file_exists(DESAPATH)) {
-            show_404();
-        }
+        // if (file_exists(DESAPATH)) {
+        //    show_404();
+        // }
 
         return view('installer.steps.server', [
             'result' => $this->check_server(),
@@ -101,9 +101,9 @@ class Install extends CI_Controller
     public function folders()
     {
         // disable install
-        if (file_exists(DESAPATH)) {
-            show_404();
-        }
+        // if (file_exists(DESAPATH)) {
+        //    show_404();
+        // }
 
         if (! $this->check_server()) {
             return redirect('install/server');
@@ -120,9 +120,9 @@ class Install extends CI_Controller
     public function database()
     {
         // disable install
-        if (file_exists(DESAPATH)) {
-            show_404();
-        }
+        // if (file_exists(DESAPATH)) {
+        //    show_404();
+        // }
 
         if (! $this->check_server() || ! $this->check_folders()) {
             return redirect('install/folders');
@@ -187,9 +187,9 @@ class Install extends CI_Controller
     public function migrations()
     {
         // disable install
-        if (file_exists(DESAPATH)) {
-            show_404();
-        }
+        // if (file_exists(DESAPATH)) {
+        //    show_404();
+        // }
 
         $this->load->database($this->config_database());
 
