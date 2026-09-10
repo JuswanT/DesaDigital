@@ -78,7 +78,7 @@ RewriteCond %{HTTP:CF-Visitor} ^{\"scheme\":\"https\"}$
 RewriteRule .* - [E=HTTPS:on]
 
 # Enforce HTTPS redirect
-RewriteCond %{HTTPS} != on
+RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ============================================================================
