@@ -1,0 +1,118 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: opensid-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
+      MYSQL_DATABASE: opensid_desa_wawatu
+      MYSQL_USER: ${DB_USERNAME:-opensid}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-opensid123}
+    ports:
+      - "3309:3306"
+    volumes:
+      - opensid-db-data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --sql-mode="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-rahasia123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - opensid-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: opensid-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8888:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rahasia123}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - opensid-network
+
+  app-wawatu:
+    build:
+      context: ./desa_wawatu
+    container_name: opensid-wawatu
+    restart: unless-stopped
+    ports:
+      - "6000:80"
+    volumes:
+      - ./desa_wawatu/desa:/var/www/html/desa
+      - ./desa_wawatu/storage:/var/www/html/storage
+      - ./desa_wawatu/backup_inkremental:/var/www/html/backup_inkremental
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - opensid-network
+
+  app-tanjungtiram:
+    build:
+      context: ./desa_tanjung_tiram
+    container_name: opensid-tanjungtiram
+    restart: unless-stopped
+    ports:
+      - "6001:80"
+    volumes:
+      - ./desa_tanjung_tiram/desa:/var/www/html/desa
+      - ./desa_tanjung_tiram/storage:/var/www/html/storage
+      - ./desa_tanjung_tiram/backup_inkremental:/var/www/html/backup_inkremental
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - opensid-network
+
+  app-lalowaru:
+    build:
+      context: ./kel_lalowaru
+    container_name: opensid-lalowaru
+    restart: unless-stopped
+    ports:
+      - "6002:80"
+    volumes:
+      - ./kel_lalowaru/desa:/var/www/html/desa
+      - ./kel_lalowaru/storage:/var/www/html/storage
+      - ./kel_lalowaru/backup_inkremental:/var/www/html/backup_inkremental
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - opensid-network
+
+  app-matawawatu:
+    build:
+      context: ./desa_mata_wawatu
+    container_name: opensid-matawawatu
+    restart: unless-stopped
+    ports:
+      - "6003:80"
+    volumes:
+      - ./desa_mata_wawatu/desa:/var/www/html/desa
+      - ./desa_mata_wawatu/storage:/var/www/html/storage
+      - ./desa_mata_wawatu/backup_inkremental:/var/www/html/backup_inkremental
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - opensid-network
+
+volumes:
+  opensid-db-data:
+    driver: local
+
+networks:
+  opensid-network:
+    driver: bridge
